@@ -9,12 +9,3 @@ export PUBLIC_SUBNETS_ID_A=$(terraform output -json | jq -r .public_subnets_id.v
 export PUBLIC_SUBNETS_ID_B=$(terraform output -json | jq -r .public_subnets_id.value[1])
 export PUBLIC_SUBNETS_ID_C=$(terraform output -json | jq -r .public_subnets_id.value[2])
 
-
-#viewing the outputs
-echo "VPC_ID=$VPC_ID, \
-PRIVATE_SUBNETS_ID_A=$PRIVATE_SUBNETS_ID_A, \
-PRIVATE_SUBNETS_ID_B=$PRIVATE_SUBNETS_ID_B, \
-PRIVATE_SUBNETS_ID_C=$PRIVATE_SUBNETS_ID_C, \
-PUBLIC_SUBNETS_ID_A=$PUBLIC_SUBNETS_ID_A, \
-PUBLIC_SUBNETS_ID_B=$PUBLIC_SUBNETS_ID_B, \
-PUBLIC_SUBNETS_ID_C=$PUBLIC_SUBNETS_ID_C"
