@@ -1,10 +1,10 @@
 cat > /home/ec2-user/environment/eks-cluster.yaml <<EOF
 ---
-apiVersion: eksctl.io/v1alpha5
+apiVersion: eksctl.io/v1alpha1
 kind: ClusterConfig
 metadata:
   name: web-host-on-eks
-  region: ap-southeast-1 # Specify the aws region
+  region: us-west-2 # Specify the aws region
   version: "1.20"
 privateCluster: # Allows configuring a fully-private cluster in which no node has outbound internet access, and private access to AWS services is enabled via VPC endpoints
   enabled: true
@@ -17,11 +17,11 @@ vpc:
   subnets: # Creating the EKS master nodes to a completely private environment
     private:
       private-ap-east-1a: 
-        id: "${PRIVATE_SUBNETS_ID_A}"
+        id: "sn---" #specify private subnet in AZ us-west-2a
       private-ap-east-1b:
-        id: "${PRIVATE_SUBNETS_ID_B}"
+        id:  "sn---" #specify private subnet in AZ us-west-2b
       private-ap-east-1c:
-        id: "${PRIVATE_SUBNETS_ID_C}"
+        id:  "sn---" #specify private subnet in AZ us-west-2c
 managedNodeGroups: # Create a managed node group in private subnets
 - name: managed
   labels:
@@ -46,9 +46,9 @@ managedNodeGroups: # Create a managed node group in private subnets
       publicKeyPath: ~/.ssh/id_rsa.pub
       # new feature for restricting SSH access to certain AWS security group IDs
   subnets:
-    - private-ap-east-1a
-    - private-ap-east-1b
-    - private-ap-east-1c
+    - private-us-west-2a
+    - private-us-west-2b
+    - private-us-west-2c
 cloudWatch:
   clusterLogging:
     # enable specific types of cluster control plane logs
